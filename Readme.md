@@ -17,8 +17,12 @@
 
 
     |>> modules
+    
         |>> usd
             |>> lib.py >> usd modules
+            
+        |>> os
+            |>> lib.py >> os modules
 
     |>> apps
 

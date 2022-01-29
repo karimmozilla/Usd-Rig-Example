@@ -3,13 +3,11 @@ import apps.maya.lib as mlib
 import modules.usd.lib as ulib
 import modules.os.lib as olib
 import maya.cmds as mc
-import tempfile
 
-# temp user export root
-export_root = tempfile.gettempdir()
+export_root = "example"
 
-mesh_filepath = olib._fr(os.path.join(export_root, "cube_geo.usdc"))
-skel_filepath = olib._fr(os.path.join(export_root, "cube_skel.usd"))
+mesh_filepath = olib._fr(os.path.join(export_root, "geo", "cube_geo.usdc"))
+skel_filepath = olib._fr(os.path.join(export_root, "skel", "cube_skel.usd"))
 asset_filepath = olib._fr(os.path.join(export_root, "cube_asset.usda"))
 
 
