@@ -18,11 +18,11 @@ with mlib.maintain_selection_type():
     mc.select(mc.ls(sl=True), r=True, hierarchy=True)
 
     with mlib.maintain_selection_type(type="joint"):
-        skel_node = mc.ls(sl=True, fl=True)[0]
+        skel_node = mc.ls(sl=True, l=True)[0]
         mlib.export_usd(skel_filepath)
 
     with mlib.maintain_selection_type(type="mesh"):
-        mesh_node = mc.ls(sl=True, fl=True)[0]
+        mesh_node = mc.ls(sl=True, l=True)[0]
         mlib.export_usd(mesh_filepath)
 
 
