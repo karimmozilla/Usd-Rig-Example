@@ -26,8 +26,8 @@ with mlib.maintain_selection_type():
 
 if os.path.isfile(mesh_filepath) and os.path.isfile(skel_filepath):
 
-    skel_path = skel_node.replace("|", "/")
-    mesh_path = mesh_node.replace("|", "/")
+    skel_path = "/".join(skel_node.split("|"))
+    mesh_path = "/".join(mesh_node.split("|")[:-1])
 
     ulib.bind_skel_mesh(
         asset_filepath=asset_filepath,
