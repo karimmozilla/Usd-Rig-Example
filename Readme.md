@@ -1,4 +1,4 @@
-##Goal
+## Goal
 
 1- you have a cube and one single joint deforming the cube.
 
@@ -13,9 +13,9 @@
 
 
 
-##Sturcture
+## Sturcture
 
-----|
+
     |>> modules
         |>> usd
             |>> lib.py >> usd modules
