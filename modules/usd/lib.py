@@ -1,6 +1,7 @@
 from pxr import Usd
 import os
 
+
 def get_default_prim(stage):
     """
     Get the default prim for the stage
@@ -14,7 +15,7 @@ def get_default_prim(stage):
     return stage.GetDefaultPrim()
 
 
-def create_open_stage(filepath) :
+def create_open_stage(filepath):
     """
     create stage if not exist or open it
 
@@ -24,11 +25,9 @@ def create_open_stage(filepath) :
     Returns:
         stage (UsdStage): the opened or created usd stage
     """
-    if os.path.isfile(filepath) :
+    if os.path.isfile(filepath)   :
         stage = Usd.Stage.Open(filepath)
-    else :
+    else:
         stage = Usd.Stage.CreateNew(filepath)
 
     return stage
-
-
