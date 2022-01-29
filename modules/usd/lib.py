@@ -1,4 +1,4 @@
-from pxr import Usd
+from pxr import Usd, UsdGeom, UsdSkel, Sdf, Gf
 import os
 import contextlib
 
@@ -50,3 +50,52 @@ def open_stage(filepath):
         yield stage
     finally:
         stage.Save()
+
+
+def bind_skel_mesh(asset_filepath, skel_filepath, mesh_filepath, skel_path, mesh_path):
+    """
+    reference and bind a usd skeleton and mesh into usd file
+
+    Args:
+        asset_filepath (str): system path where creating a new usd asset file reference skeleton and mesh usd files
+        skel_filepath (str): system path for usd skeleton file
+        mesh_filepath (str): [system path for usd mesh file
+        skel_path (str): the string path of skeleton prim
+        mesh_path (str): the string path of mesh prim
+    """
+
+    with open_stage(asset_filepath) as stage:
+
+        # define a SkelRoot.
+        root_path = Sdf.Path("/{}".format(mesh_path.split("/")[1]))
+        root = UsdSkel.Root.Define(stage, root_path)
+
+        # basic configuration
+        stage.SetDefaultPrim(root.GetPrim())
+        stage.SetStartTimeCode(1)
+        stage.SetEndTimeCode(20)
+        stage.SetTimeCodesPerSecond(24)
+
+        # reference skeleton usd file into skeleton prim
+        stage.DefinePrim(skel_path).GetReferences().AddReference(
+            skel_filepath, skel_path
+        )
+        skeleton = UsdSkel.Skeleton.Define(stage, skel_path)
+
+        # reference mesh usd file into mesh prim
+        stage.DefinePrim(mesh_path).GetReferences().AddReference(
+            mesh_filepath, mesh_path
+        )
+        mesh = UsdGeom.Mesh.Define(stage, mesh_path)
+
+        # bind skeleton to mesh
+        skinBinding = UsdSkel.BindingAPI.Apply(mesh.GetPrim())
+        skinBinding.CreateJointIndicesPrimvar(constant=False, elementSize=1).Set(
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        )
+        skinBinding.CreateJointWeightsPrimvar(constant=False, elementSize=1).Set(
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+        )
+        skinBinding.CreateGeomBindTransformAttr().Set(Gf.Matrix4d())
+
+        skinBinding.CreateSkeletonRel().AddTarget(skeleton.GetPath())
