@@ -13,7 +13,7 @@
 
 
 
-## Sturcture
+## Structure
 
 
     |>> modules
