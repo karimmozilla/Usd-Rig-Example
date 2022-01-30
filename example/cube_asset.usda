@@ -1,2 +1,34 @@
 #usda 1.0
+(
+    defaultPrim = "cube_RIG"
+    endTimeCode = 20
+    startTimeCode = 1
+    timeCodesPerSecond = 24
+)
+
+def SkelRoot "cube_RIG"
+{
+    def "cube_JNT" (
+        prepend references = @C:/Users/Windows/Documents/git/Usd-Rig-Example/example/skel/cube_skel.usd@</cube_RIG/cube_JNT>
+    )
+    {
+    }
+
+    def "cube_GEO" (
+        prepend apiSchemas = ["SkelBindingAPI"]
+        prepend references = @C:/Users/Windows/Documents/git/Usd-Rig-Example/example/geo/cube_geo.usdc@</cube_RIG/cube_GEO>
+    )
+    {
+        matrix4d primvars:skel:geomBindTransform = ( (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1) )
+        int[] primvars:skel:jointIndices = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] (
+            elementSize = 1
+            interpolation = "vertex"
+        )
+        float[] primvars:skel:jointWeights = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1] (
+            elementSize = 1
+            interpolation = "vertex"
+        )
+        prepend rel skel:skeleton = </cube_RIG/cube_JNT>
+    }
+}
 
