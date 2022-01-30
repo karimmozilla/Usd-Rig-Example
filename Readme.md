@@ -17,10 +17,10 @@
 
 
     |>> modules
-    
+
         |>> usd
             |>> lib.py >> usd modules
-            
+
         |>> os
             |>> lib.py >> os modules
 
@@ -31,5 +31,4 @@
             |>> create_rig.py
 
         |>> houdini
-            |>> lib.py >> houdini modules
             |>> load_rig.py
