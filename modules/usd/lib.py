@@ -89,13 +89,13 @@ def bind_skel_mesh(asset_filepath, skel_filepath, mesh_filepath, skel_path, mesh
         mesh = UsdGeom.Mesh.Define(stage, mesh_path)
 
         # bind skeleton to mesh
-        skinBinding = UsdSkel.BindingAPI.Apply(mesh.GetPrim())
-        skinBinding.CreateJointIndicesPrimvar(constant=False, elementSize=1).Set(
+        skin_binding = UsdSkel.BindingAPI.Apply(mesh.GetPrim())
+        skin_binding.CreateJointIndicesPrimvar(constant=False, elementSize=1).Set(
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         )
-        skinBinding.CreateJointWeightsPrimvar(constant=False, elementSize=1).Set(
+        skin_binding.CreateJointWeightsPrimvar(constant=False, elementSize=1).Set(
             [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
         )
-        skinBinding.CreateGeomBindTransformAttr().Set(Gf.Matrix4d())
+        skin_binding.CreateGeomBindTransformAttr().Set(Gf.Matrix4d())
 
-        skinBinding.CreateSkeletonRel().AddTarget(skeleton.GetPath())
+        skin_binding.CreateSkeletonRel().AddTarget(skeleton.GetPath())
